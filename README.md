@@ -6,7 +6,7 @@
 
 # Wiki
 
-Wiki page of the entire project is [here](https://github.com/cu-ecen-aeld/final-project-vizdr/wiki)
+Wiki page of the entire project overview can be found [here](https://github.com/cu-ecen-aeld/final-project-vizdr/wiki/Project-Overview)
 
 
 # Code Organisation
