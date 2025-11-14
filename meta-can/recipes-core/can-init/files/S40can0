@@ -1,0 +1,12 @@
+#!/bin/sh
+case "$1" in
+  start)
+    echo "Bringing up mcp2515 CAN0 interface..."
+    /sbin/ip link set can0 up type can bitrate 500000
+    ;;
+  stop)
+    echo "Bringing down mcp2515 CAN0 interface..."
+    /sbin/ip link set can0 down
+    ;;
+esac
+exit 0
