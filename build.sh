@@ -136,7 +136,7 @@ UART_LINE='ENABLE_UART = "1"'
 # WIRELESS_RUNTIME_LINE='VIRTUAL-RUNTIME_wireless-tools = ""'
 
 # Packages
-# Consolidatet IMAGE_INSTALL_APPEND line
+# Consolidated IMAGE_INSTALL_APPEND line
 IMAGE_INSTALL_APPEND='IMAGE_INSTALL:append = " linux-firmware-bcm43430 wpa-supplicant iw openssh libgpiod libgpiod-tools sound-sensor can-utils iproute2 can-init "'
 
 #----------------------------------------------------------
@@ -173,7 +173,7 @@ add_layer_if_missing "meta-networking" "$PROJECT_ROOT/meta-openembedded/meta-net
 add_layer_if_missing "meta-aesd" "$PROJECT_ROOT/meta-aesd"
 add_layer_if_missing "meta-sound-sensor" "$PROJECT_ROOT/meta-sound-sensor"
 add_layer_if_missing "meta-can" "$PROJECT_ROOT/meta-can"
-
+add_layer_if_missing "meta-can-server" "$PROJECT_ROOT/meta-can-server"
 
 ############################################################
 # Build summary
