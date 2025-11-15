@@ -11,8 +11,8 @@ S = "${WORKDIR}/git"
 SRC_URI += "file://S99can-server"
 
 inherit cmake update-rc.d
-INITSCRIPT_NAME = "S99can-server"
-INITSCRIPT_PARAMS = "defaults"
+INITSCRIPT_NAME = "can-server"
+INITSCRIPT_PARAMS = "defaults 99"
 
 # Optionally can be set CMake options
 EXTRA_OECMAKE = ""
@@ -24,7 +24,7 @@ do_install() {
 
     # Install init script as S99can-server
     install -d ${D}${sysconfdir}/init.d
-    install -m 0755 ${WORKDIR}/S99can-server ${D}${sysconfdir}/init.d/S99can-server
+    install -m 0755 ${WORKDIR}/S99can-server ${D}${sysconfdir}/init.d/can-server
 }
 
 FILES_${PN} = "\
