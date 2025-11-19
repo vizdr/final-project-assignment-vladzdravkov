@@ -2,10 +2,9 @@ SUMMARY = "CAN Socket Sender Application"
 DESCRIPTION = "Reads detection count from a file and sends it over CAN using SocketCAN"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
-
-SRC_URI = "git://github.com/vizdr/final-project-assignment-app-vizdr.git;protocol=ssh;branch=master"
-SRCREV = "144113df75627c4835668e4544b9ae9ebbd4b8a2"
-
+SRC_URI = "git://github.com/vizdr/final-project-assignment-app-vizdr.git;protocol=https;nobranch=1"
+SRCREV = "071a333ffb8ac1d8fde01e84026e594675c1d90c"
+PV = "1.0+git${SRCPV}"
 S = "${WORKDIR}/git/Socket_CAN_Sender"
 
 SRC_URI += "file://S99can-server"
@@ -27,7 +26,7 @@ do_install() {
     install -m 0755 ${WORKDIR}/S99can-server ${D}${sysconfdir}/init.d/can-server
 }
 
-FILES_${PN} = "\
+FILES_${PN} += "\
     ${bindir}/can_send_detection \
     ${sysconfdir}/init.d/can-server \
 "

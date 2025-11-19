@@ -2,6 +2,14 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <gpiod.h>
+#include <sys/file.h>
+
+// Missing required POSIX headers:
+#include <signal.h>       // sig_atomic_t, siginfo_t, sigaction, SIGALRM
+#include <string.h>       // memset()
+#include <sys/time.h>     // struct itimerval, setitimer()
+#include <errno.h>
+#include <stdlib.h>
 
 #define GPIO_CHIP "/dev/gpiochip0"
 #define SOUND_PIN 17
@@ -119,7 +127,7 @@ int main(void) {
             fprintf(file_count, "%d\n", detection_count);
             fflush(file_count);
             ftruncate(fileno(file_count), ftell(file_count));
-
+            printf("Written to file count of detections: %d\n", detection_count);
             timer_fired = 0; // reset flag
         }
 

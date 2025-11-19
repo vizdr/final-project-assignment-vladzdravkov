@@ -41,8 +41,10 @@ append_line_if_missing() {
 
 if [ "$1" = "clean" ]; then
     echo "Cleaning Yocto build directories..."
-    rm -rf tmp sstate-cache downloads cache
+    cd ./build
+    rm -rf tmp sstate-cache cache
     echo "Cleanup complete."
+    cd
     exit 0
 fi
 ############################################################
@@ -137,15 +139,15 @@ UART_LINE='ENABLE_UART = "1"'
 
 # Packages
 # Consolidated IMAGE_INSTALL_APPEND line
-IMAGE_INSTALL_APPEND='IMAGE_INSTALL:append = " linux-firmware-bcm43430 wpa-supplicant iw openssh libgpiod libgpiod-tools sound-sensor can-utils iproute2 can-init "'
+IMAGE_INSTALL_APPEND='IMAGE_INSTALL:append = " linux-firmware-bcm43430 wpa-supplicant iw openssh libgpiod libgpiod-tools sound-sensor can-utils iproute2 can-init can-server "'
 
 #----------------------------------------------------------
 # CAN-related configuration for Waveshare RS485 CAN HAT Rev 2.1
 # (12 MHz crystal, interrupt on GPIO25)
 ENABLE_SPI_LINE='ENABLE_SPI = "1"'
 CAN_DTO='RPI_EXTRA_CONFIG = "dtoverlay=mcp2515-can0,oscillator=12000000,interrupt=25,spimaxfrequency=5000000 dtoverlay=spi1-1cs"'
-CAN_TOOLS='IMAGE_INSTALL:append = " can-utils iproute2 "'
-CAN_INIT='IMAGE_INSTALL:append = " can-init "'
+DISABLE_VULKAN_LINE='PACKAGECONFIG:remove:pn-mesa = "vulkan"'
+FORCE_GALLIUM_LINE='GALLIUMDRIVERS:pn-mesa = "v3d,vc4,kmsro,virgl"'
 
 ############################################################
 # Append configuration lines to local.conf
@@ -162,6 +164,9 @@ append_line_if_missing "$UART_LINE"
 append_line_if_missing "$ENABLE_SPI_LINE"
 append_line_if_missing "$CAN_DTO"
 append_line_if_missing "$IMAGE_INSTALL_APPEND"
+append_line_if_missing "$DISABLE_VULKAN_LINE"
+append_line_if_missing "$FORCE_GALLIUM_LINE"
+# append_line_if_missing "$WIRELESS_RUNTIME_LINE"
 
 # -------------------------
 # Add required layers
@@ -181,7 +186,7 @@ add_layer_if_missing "meta-can-server" "$PROJECT_ROOT/meta-can-server"
 echo "=============================================="
 echo "Yocto build configuration summary:"
 echo "Machine:        raspberrypi0-2w-64"
-echo "Layers:         meta-raspberrypi, meta-openembedded, meta-python, meta-networking, meta-aesd, meta-sound-sensor, meta-can"
+echo "Layers:         meta-raspberrypi, meta-openembedded, meta-python, meta-networking, meta-aesd, meta-sound-sensor, meta-can, meta-can-server"
 echo "Image type:     wic.bz2"
 echo "Wi-Fi:          enabled (bcm43430 firmware)"
 echo "SSH:            enabled (OpenSSH)"
